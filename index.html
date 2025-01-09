@@ -425,22 +425,37 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.js"></script>
 
 <script>
+// Define the API URL
+const apiUrl = 'https://aniwatch-api-net.vercel.app/api/v2/hianime/home';
+
 // Fetch trending anime data and initialize Swiper
-fetch('https://aniwatch-api-net.vercel.app/api/v2/hianime/home')
-    .then((response) => {
+console.log('Starting fetch process...');
+
+fetch(apiUrl)
+    .then(response => {
+        console.log('Received response:', response);
+
+        // Check if the response is okay (status code 200-299)
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
+
+        // Parse JSON from the response
         return response.json();
     })
-    .then((data) => {
+    .then(data => {
+        console.log('Data fetched:', data);
+
+        // Validate the data structure
         if (data.success && Array.isArray(data.data.trendingAnimes)) {
             const swiperWrapper = document.getElementById('swiper-wrapper');
             const trendingAnimes = data.data.trendingAnimes;
 
-            // Clear existing content in case of reinitialization
-            swiperWrapper            // Dynamically populate Swiper slides
-            trendingAnimes.forEach((anime) => {
+            // Clear the swiper wrapper (prevent duplicates)
+            swiperWrapper.innerHTML = '';
+
+            // Add slides dynamically to the Swiper wrapper
+            trendingAnimes.forEach(anime => {
                 const slide = document.createElement('div');
                 slide.classList.add('swiper-slide', 'item-qtip');
                 slide.setAttribute('data-id', anime.id);
@@ -459,11 +474,15 @@ fetch('https://aniwatch-api-net.vercel.app/api/v2/hianime/home')
                         <div class="clearfix"></div>
                     </div>
                 `;
+
+                // Append the slide to the swiper wrapper
                 swiperWrapper.appendChild(slide);
             });
 
+            console.log('Slides added. Initializing Swiper...');
+
             // Initialize Swiper
-            const trendingSlider = new Swiper('.trending-container', {
+           trending-container', {
                 slidesPerView: 4,
                 spaceBetween: 10,
                 breakpoints: {
@@ -472,7 +491,8 @@ fetch('https://aniwatch-api-net.vercel.app/api/v2/hianime/home')
                     },
                 },
                 navigation: {
-                    nextEl: '.swiper-button-next: '.swiper-button-prev',
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
                 },
                 pagination: {
                     el: '.swiper-pagination',
@@ -482,12 +502,13 @@ fetch('https://aniwatch-api-net.vercel.app/api/v2/hianime/home')
 
             console.log('Swiper initialized:', trendingSlider);
         } else {
-            console.error('Unexpected data format:', data);
+            console.error('Invalid data format:', data);
         }
     })
-    .catch((error) => {
-        console.error('Error fetching trending anime data:', error);
+    .catch(error => {
+        console.error('Error during fetch or initialization:', error);
     });
+
 
 </script>
 
