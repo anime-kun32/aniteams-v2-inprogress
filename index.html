@@ -409,11 +409,9 @@
                         <div class="swiper-wrapper" id="swiper-wrapper">
                             <!-- Dynamic Content Goes Here -->
                         </div>
-                        <div class="clearfix"></div>
                     </div>
                     <div class="trending-navi" style="display: flex; flex-direction: column; align-items: center;">
-                        <div class="navi-next" tabindex="0" role="button" aria-label="Next slide" aria-disabled="false" style="margin-bottom: 10px;"></div>
-                        <div class="button" aria-label="Previous slide" aria-disabled="true"></div>
+                        <div class="navi-next swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-disabled="false class="navi-prev swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-disabled="true"></div>
                     </div>
                 </div>
             </div>
@@ -424,25 +422,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.js"></script>
 
 <script>
-    console.log('Fetching anime data...');
-    
-    // Fetch the trending anime data from the API
     fetch('https://aniwatch-api-net.vercel.app/api/v2/hianime/home')
-        .then(response => {
-            console.log('Response:', response); // Log the response object
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            console.log('Data received:', data); // Log the fetched data
-            
             if (data.success && Array.isArray(data.data.trendingAnimes)) {
                 const swiperWrapper = document.getElementById('swiper-wrapper');
                 const trendingAnimes = data.data.trendingAnimes;
 
-                // Loop through the anime data and create the swiper slides dynamically
+                // Add slides dynamically to the swiper-wrapper
                 trendingAnimes.forEach((anime) => {
                     const slide = document.createElement('div');
                     slide.classList.add('swiper-slide', 'item-qtip');
@@ -465,17 +452,18 @@
                     swiperWrapper.appendChild(slide);
                 });
 
-                // Initialize Swiper after the content is loaded
+                // Initialize Swiper with navigation and slidesPerView
                 var trendingSlider = new Swiper('.trending-container', {
                     slidesPerView: 4,
+                    spaceBetween: 10,
                     breakpoints: {
                         768: {
-                            slidesPerView: 6
-                        }
+                            slidesPerView: 6,
+                        },
                     },
                     navigation: {
-                        nextEl: '.navi-next',
-                        prevEl: '.navi-prev',
+                        nextEl: '.navi-next', // Correct navigation next button
+                        prevEl: '.navi-prev', // Correct navigation previous button
                     },
                 });
             } else {
