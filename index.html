@@ -309,81 +309,87 @@
     <div class="clearfix"></div>
 
 <div class="deslide-wrap">
+<div class="deslide-wrap">
     <div class="container">
         <div id="slider" class="slider-container swiper-container">
             <div class="swiper-wrapper" id="swiperWrapper">
                 <!-- Dynamic content will be injected here -->
             </div>
-           
+            <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"></div>
+            <div class="swiper-navigation">
+                <div class="swiper-button swiper-button-next"><i class="fas fa-angle-right"></i></div>
+                <div class="swiper-button swiper-button-prev"><i class="fas fa-angle-left"></i></div>
+            </div>
             <div class="clearfix"></div>
-            <div class="trending-navi" style="display: flex; flex-direction: column; align-items: center;">
-                        <div class="navi-next" tabindex="0" role="button" aria-label="Next slide" aria-disabled="false" style="margin-bottom: 10px;">
-                         
-                        </div>
-                        <div class="navi-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-disabled="true">
-                        
-                        </div>
         </div>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.js"></script>
 <script>
-fetch('https://aniwatch-api-net.vercel.app/api/v2/hianime/home')
-    .then(response => response.json())
-    .then(data => {
-        if (data.success && Array.isArray(data.data.trendingAnimes)) {
-            const swiperWrapper = document.getElementById('swiper-wrapper');
-            const trendingAnimes = data.data.trendingAnimes;
+    // Fetch data from the API
+    fetch('https://aniwatch-api-net.vercel.app/api/v2/hianime/home')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const spotlightAnimes = data.data.spotlightAnimes;
+                const swiperWrapper = document.getElementById('swiperWrapper');
 
-            // Add slides dynamically to the swiper-wrapper
-            trendingAnimes.forEach((anime) => {
-                const slide = document.createElement('div');
-                slide.classList.add('swiper-slide', 'item-qtip');
-                slide.set-id', anime.id);
-
-                slide.innerHTML = `
-                    <div class="item">
-                        <div class="number">
-                            <span>${anime.rank}</span>
-                            <div class="film-title dynamic-name" data-jname="${anime.jname}">
-                                ${anime.name}
+                // Loop through each spotlight anime and create HTML structure
+                spotlightAnimes.forEach(anime => {
+                    const slide = document.createElement('div');
+                    slide.classList.add('swiper-slide');
+                    slide.innerHTML = `
+                        <div class="deslide-item">
+                            <div class="deslide-cover">
+                                <div class="deslide-cover-img">
+                                    <img class="film-poster-img lazyload" src="${anime.poster}" alt="${anime.name}">
+                                </div>
                             </div>
+                            <div class="deslide-item-content">
+                                <div class="desi-sub-text">#${anime.rank} Spotlight</div>
+                                <div class="desi-head-title dynamic-name" data-jname="${anime.jname}">${anime.name}</div>
+                                <div class="sc-detail">
+                                    <div class="scd-item"><i class="fas fa-play-circle mr-1"></i>&nbsp;${anime.otherInfo[0]}</div>
+                                    <div class="scd-item"><i class="fas fa-clock mr-1"></i>&nbsp;${anime.otherInfo[1]}</div>
+                                    <div class="scd-item m-hide"><i class="fas fa-calendar mr-1"></i>&nbsp;${anime.otherInfo[2]}</div>
+                                    <div class="scd-item mr-1"><span class="quality">&nbsp;${anime.otherInfo[3]}</span></div>
+                                    <div class="scd-item">
+                                        <div class="tick">
+                                            <div class="tick-item tick-sub"><i class="fas fa-closed-captioning mr-1"></i> ${anime.episodes.sub} Sub Episodes</div>
+                                            <div class="tick-item tick-dub"><i class="fas fa-microphone mr-1"></i> ${anime.episodes.dub} Dub Episodes</div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="desi-description">
+                                    <a href="/play/${anime.id}?ep=1" class="btn btn-primary btn-radius mr-2"><i class="fas fa-play-circle mr-2"></i>Watch Now</a>
+                                    <a href="/details/${anime.id}" class="btn btn-secondary btn-radius">Detail<i class="fas fa-angle-right ml-2"></i></a>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <a href="/details/${anime.id}" class="film-poster">
-                            <img src="${anime.poster}" class="film-poster-img lazyload" title="${anime.name}" alt="${anime.name}">
-                        </a>
-                        <div class="clearfix"></div>
-                    </div>
-                `;
-                swiperWrapper.appendChild(slide);
-            });
+                    `;
+                    swiperWrapper.appendChild(slide);
+                });
 
-            // Initialize Swiper with navigation and slidesPerView
-            var trendingSlider = new Swiper('.trending-container', {
-                slidesPerView: 4,
-                spaceBetween: 10,
-                breakpoints: {
-                    768: {
-                        slidesPerView: 6,
+                // Initialize Swiper after adding the slides
+                var mainSlider = new Swiper('.slider-container', {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                    loop: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
                     },
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next', // Correct navigation next button
-                    prevEl: '.swiper-button-prev', // Correct navigation previous button
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-            });
-.error('Trending anime data is not in the expected format or missing');
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching trending anime data:', error);
-    });
-
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+            }
+        })
+        .catch(error => console.error('Error fetching API data:', error));
 </script>
 
 
