@@ -1,7 +1,5 @@
 <div id="sidebar_menu">
-    <button class="btn btn-radius btn-sm btn-secondary toggle-sidebar">
-        <i class="fas fa-angle-left mr-2"></i>Close menu
-    </button>
+    <button class="btn btn-radius btn-sm btn-secondary toggle-sidebar"><i class="fas fa-angle-left mr-2"></i>Close menu</button>
     <div class="sb-setting">
         <div class="header-setting">
             <div class="hs-toggles">
@@ -19,7 +17,7 @@
     </div>
     <ul class="nav sidebar_menu-list">
         <li class="nav-item active"><a class="nav-link" href="/home" title="Home">Home</a></li>
-        <li class="nav-item"><a class="nav-link-anime" title="Subbed Anime">Subbed Anime</a></li>
+        <li class="nav-item"><a class="nav-link" href="/anime/subbed-anime" title="Subbed Anime">Subbed Anime</a></li>
         <li class="nav-item"><a class="nav-link" href="/anime/dubbed-anime" title="Dubbed Anime">Dubbed Anime</a></li>
         <li class="nav-item"><a class="nav-link" href="/anime/most-popular" title="Most Popular">Most Popular</a></li>
         <li class="nav-item"><a class="nav-link" href="/anime/movie" title="Movies">Movies</a></li>
@@ -32,22 +30,52 @@
             <div class="nav-link" title="Genre"><strong><i class="fa fa-angle-down"></i> Genre</strong></div>
             <div class="sidebar_menu-sub show" id="sidebar_subs_genre">
                 <ul class="nav color-list sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="/genre/action" title="Action">Action</a></li>
-="nav-item"><a class="nav-link" href="/genre/adventure" title="Adventure">Adventure</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/genre/cars" title="Cars">Cars</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/genre/comedy" title="Comedy">Comedy</a></li>
-                    <!-- More genres here -->
+                    <li class="nav-item"> <a class="nav-link" href="/genre/action" title="Action">Action</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/adventure" title="Adventure">Adventure</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/cars" title="Cars">Cars</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/comedy" title="Comedy">Comedy</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/dementia" title="Dementia">Dementia</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/drama" title="Drama">Drama</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/ecchi" title="Ecchi">Ecchi</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/fantasy" title="Fantasy">Fantasy</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/game" title="Game">Game</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/harem" title="Harem">Harem</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/history" title="History">History</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/horror" title="Horror">Horror</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/kids" title="Kids">Kids</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/magic" title="Magic">Magic</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/martial-arts" title="Martial Arts">Martial class="nav-link" href="/genre/mecha" title="Mecha">Mecha</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/music" title="Music">Music</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/mystery" title="Mystery">Mystery</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/parody" title="Parody">Parody</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/psychological" title="Psychological">Psychological</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/romance" title="Romance">Romance</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/school" title="School">School</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/sci-fi" title="Sci-Fi">Sci-Fi</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/seinen" title="Seinen">Seinen</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/shoujo" title="Shoujo">Shoujo</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/shounen" title="Shounen">Shounen</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/slice-of-life" title="Slice of Life">Slice of Life</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/supernatural" title="Supernatural">Supernatural</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/superpower" title="Superpower">Superpower</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/sports" title="Sports">Sports</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/thriller" title="Thriller">Thriller</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="/genre/vampire" title="Vampire">Vampire</a> </li>
+                    <li class="nav-item nav-more">
+                        <a class="nav-link"><i class="fas fa-plus mr-2"></i>More</a>
+                    </li>
                 </ul>
             </div>
         </li>
     </ul>
     <div class="clearfix"></div>
 </div>
+
 <div id="header" class="header-home">
     <div class="container">
         <div id="mobile_menu"><i class="fa fa-bars"></i></div>
         <a href="/home" id="logo" title="Website Title">
-            <img src="logo_url" width="100%" height="auto" alt="Website Title">
+            <img src="website_logo.png" width="100%" height="auto" alt="Website Title">
             <div class="clearfix"></div>
         </a>
         <div id="search">
@@ -58,7 +86,7 @@
                     <button type="submit" class="search-icon"><i class="fas fa-search"></i></button>
                 </form>
                 <div class="nav search-result-pop" id="search-suggest" style="display: none;">
-                    <div class="loading="search-loading" style="display: none;">
+                    <div class="loading-relative" id="search-loading" style="display: none;">
                         <div class="loading">
                             <div class="span1"></div>
                             <div class="span2"></div>
@@ -69,6 +97,7 @@
                 </div>
             </div>
         </div>
+
         <div class="header-group">
             <div class="anw-group">
                 <div class="zrg-list">
@@ -80,5 +109,63 @@
                 <div class="clearfix"></div>
             </div>
         </div>
+
+        <div class="header-setting">
+            <div class="hs-toggles">
+                <a href="/anime/most-popular" class="hst-item" data-toggle="tooltip" data-original-title="Popular Anime List">
+                    <div class="hst-icon"><i class="fas fa-star"></i></div>
+                    <div class="name"><span>Popular</span></div>
+                </a>
+                <a href="/anime/movie" class="hst-item" data-toggle="tooltip" data-original-title="Anime Movies">
+                    <div class="hst-icon"><i class="fas fa-film"></i></div>
+                    <div class="name"><span>Movie</span></div>
+                </a>
+                <a href="/random" class="hst-item" data-toggle="tooltip" data-original-title="Select Random Anime">
+                    <div class="hst-icon"><i class="fas fa-random"></i></div>
+                    <div class="name"><span>Random</span></div>
+                </a>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div id="pick_menu">
+            <div class="pick_menu-ul">
+                <ul class="ulclear">
+                    <li class="pmu-item pmu-item-home">
+                        <a class="pmu-item-icon" href="/" title="Home">
+                            <img src="/public/images/pick-home.svg" data-toggle="tooltip" data-placement="right" title="Home">
+                        </a>
+                    </li>
+                    <li class="pmu-item pmu-item-movies">
+                        <a class="pmu-item-icon" href="/movies" title="Movies">
+                            <img src="/public/images/pick-movies.svg" data-toggle="tooltip" data-placement="right" title="Movies">
+                        </a>
+                    </li>
+                    <li class="pmu-item pmu-item-show">
+                        <a class="pmu-item-icon" href="/tv" title="TV Series">
+                            <img src="/public/images/pick-show.svg" data-toggle="tooltip" data-placement="right" title="TV Series">
+                        </a>
+                    </li>
+                    <li class="pmu-item pmu-item-popular">
+                        <a class="pmu-item-icon" href="/popular" title="Most Popular">
+                            <img src="/public/images/pick-popular.svg" data-toggle="tooltip" data-placement="right" title="Most Popular">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="header_right">
+            <div id="user-slot">
+                <div class="header_right-user">
+                    <a href="/login" class="btn-user btn btn-sm btn-primary btn-login">Login</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile_search" class="mobile-search"><i class="fa fa-search"></i></div>
+        <div class="clearfix"></div>
     </div>
 </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
