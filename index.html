@@ -394,6 +394,105 @@
 
 
     <!-- include: /components/trending.html -->
+<div id="anime-trending">
+    <div class="container">
+        <section class="block_area block_area_trending">
+            <div class="block_area-header">
+                <div class="bah-heading">
+                    <h2 class="cat-heading">Trending</h2>
+                </div>
+                < class="clearfix"></div>
+            </div>
+            <div class="block_area-content">
+                <div class="trending-list" id="trending-home">
+                    <div class="trending-container swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide item-qtip" data-id="1">
+                                <div class="item">
+                                    <div class="number">
+                                        <span>01</span>
+                                        <div class="film-title dynamic-name" data-jname="Attack on Titan">
+                                            Attack on Titan
+                                        </div>
+                                    </div>
+                                    <a href="/details/1" class="film-poster">
+                                        <img src="https://example.com/attack_on_titan.jpg" class="film-poster-img lazyload" title="Attack on Titan" alt="Attack on Titan">
+                                    </a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide item-qtip" data-id="2">
+                                <div class="item">
+                                    <div class="number">
+                                        <span>02</span>
+                                        <div class="film-title dynamic-name" data-jname="Demon Slayer">
+                                            Demon Slayer
+                                        </div>
+                                    </div>
+                                    <a href="/details/2" class="film-poster">
+                                        <img src="https://example.com/demon_slayer.jpg" class="film-poster-img lazyload" title="Demon Slayer" alt="Demon Slayer">
+                                    </a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide item-qtip" data-id="3">
+                                <div class="item">
+                                    <div class="number">
+                                        <span>03</span>
+                                        <div class="film-title dynamic-name" data-jname="My Hero Academia">
+                                            My Hero Academia
+                                        </div>
+                                    </div>
+                                    <a href="/details/3" class="film-poster">
+                                        <img src="https://example.com/my_hero_academia.jpg" class="film-poster-img lazyload" title="My Hero Academia" alt="My Hero Academia">
+                                    </a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide item-qtip" data-id="4">
+                                <div class="item">
+                                    <div class="number">
+                                        <span>04</span>
+                                        <div class="film-title dynamic-name" data-jname="Jujutsu Kaisen">
+                                            Jujutsu Kaisen
+                                        </div>
+                                    </div>
+                                    <a href="/details/4" class="film-po">
+                                        <img src="https://example.com/jujutsu_kaisen.jpg" class="film-poster-img lazyload" title="Jujutsu Kaisen" alt="Jujutsu Kaisen">
+                                    </a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="trending-navi" style="display: flex; flex-direction: column; align-items: center;">
+                        <div class="navi-next" tabindex="0" role="button" aria-label="Next slide" aria-disabled="false" style="margin-bottom: 10px;">
+                        </div>
+                        <div class="navi-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-disabled="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.js"></script>
+
+<script>
+    var trendingSlider = new Swiper('.trending-container', {
+        slidesPerView: 4,
+        breakpoints: {
+            768: {
+                slidesPerView: 6
+            }
+        },
+        navigation: {
+            nextEl: '.navi-next',
+            prevEl: '.navi-prev',
+        },
+    });
+</script>
 
     <div class="share-buttons share-buttons-home">
         <div class="container">
