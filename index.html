@@ -137,7 +137,69 @@
     <!-- include: /components/header.html -->
     <div class="clearfix"></div>
 
-    <!-- include: /components/slidebar.html -->
+  <div class="deslide-wrap">
+    <div class="container">
+        <div id="slider" class="slider-container swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="deslide-item">
+                        <div class="deslide-cover">
+                            <div class="deslide-cover-img">
+                                <img class="film-poster-img lazyload" src="path_to_poster" alt="Anime Name">
+                            </div>
+                        </div>
+                        <div class="deslide-item-content">
+                            <div class="desi-sub-text">#1 Spotlight</div>
+                            <div class="desi-head-title dynamic-name" data-jname="Anime Japanese Name">Anime Name</div>
+                            <div class="sc-detail">
+                                <div class="scd-item"><i class="fas fa-play-circle mr-1"></i>&nbsp;Other Info 1</div>
+                                <div class="scd-item"><i class="fas fa-clock mr-1"></i>&nbsp;Other Info 2</div>
+                                <div class="scd-item m-hide"><i class="fas fa-calendar mr-1"></i>&nbsp;Other Info 3</div>
+                                <div class="scd-item mr-1"><span class="quality">&nbsp;Quality Info</span> </div>
+                                <div class="scd-item">
+                                    <div class="tick">
+                                        <div class="tick-item tick-sub"><i class="fas fa-closed-captioning mr-1"></i> Sub Episodes</div>
+                                        <div class="tick-item tick-dub"><i class="fas fa-microphone mr-1"></i> Dub Episodes</div>
+                                        <div class="tick-item tick-eps">Sub Episodes</div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="desi-description                                <a href="/play/anime_id?ep=1" class="btn btn-primary btn-radius mr-2"><i class="fas fa-play-circle mr-2"></i>Watch Now</a>
+                                <a href="/details/anime_id" class="btn btn-secondary btn-radius">Detail<i class="fas fa-angle-right ml-2"></i></a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"></div>
+            <div class="swiper-navigation">
+                <div class="swiper-button swiper-button-next"><i class="fas fa-angle-right"></i></div>
+                <div class="swiper-button swiper-button-prev"><i class="fas fa-angle-left"></i></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.js"></script>
+<script>
+    var mainSlider = new Swiper('.slider-container', {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+
 
     <!-- include: /components/trending.html -->
 
