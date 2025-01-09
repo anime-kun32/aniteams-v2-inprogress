@@ -425,89 +425,80 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.js"></script>
 
 <script>
-// Define the API URL
-const apiUrl = 'https://aniwatch-api-net.vercel.app/api/v2/hianime/home';
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Document is ready. Starting fetch process...');
 
-// Fetch trending anime data and initialize Swiper
-console.log('Starting fetch process...');
+    const apiUrl = 'https://aniwatch-api-net.vercel.app/api/v2/hianime/home';
 
-fetch(apiUrl)
-    .then(response => {
-        console.log('Received response:', response);
+    fetch(apiUrl)
+        .then(response => {
+            console.log('Response received:', response);
 
-        // Check if the response is okay (status code 200-299)
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
 
-        // Parse JSON from the response
-        return response.json();
-    })
-    .then(data => {
-        console.log('Data fetched:', data);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Data fetched:', data);
 
-        // Validate the data structure
-        if (data.success && Array.isArray(data.data.trendingAnimes)) {
-            const swiperWrapper = document.getElementById('swiper-wrapper');
-            const trendingAnimes = data.data.trendingAnimes;
+            if (data.success && Array.isArray(data.data.trendingAnimes)) {
+                const swiperWrapper = document.getElementById('swiper-wrapper');
+                swiperWrapper.innerHTML = ''; // Clear any existing slides
 
-            // Clear the swiper wrapper (prevent duplicates)
-            swiperWrapper.innerHTML = '';
+                data.data.trendingAnimes.forEach(anime => {
+                    const slide = document.createElement('div');
+                    slide.classList.add('swiper-slide', 'item-qtip');
+                    slide.setAttribute('data-id', anime.id);
 
-            // Add slides dynamically to the Swiper wrapper
-            trendingAnimes.forEach(anime => {
-                const slide = document.createElement('div');
-                slide.classList.add('swiper-slide', 'item-qtip');
-                slide.setAttribute('data-id', anime.id);
-
-                slide.innerHTML = `
-                    <div class="item">
-                        <div class="number">
-                            <span>${anime.rank}</span>
-                            <div class="film-title dynamic-name" data-jname="${anime.jname}">
-                                ${anime.name}
+                    slide.innerHTML = `
+                        <div class="item">
+                            <div class="number">
+                                <span>${anime.rank}</span>
+                                <div class="film-title dynamic-name" data-jname="${anime.jname}">
+                                    ${anime.name}
+                                </div>
                             </div>
+                            <a href="/details/${anime.id}" class="film-poster">
+                                <img src="${anime.poster}" class="film-poster-img lazyload" title="${anime.name}" alt="${anime.name}">
+                            </a>
+                            <div class="clearfix"></div>
                         </div>
-                        <a href="/details/${anime.id}" class="film-poster">
-                            <img src="${anime.poster}" class="film-poster-img lazyload" title="${anime.name}" alt="${anime.name}">
-                        </a>
-                        <div class="clearfix"></div>
-                    </div>
-                `;
+                    `;
 
-                // Append the slide to the swiper wrapper
-                swiperWrapper.appendChild(slide);
-            });
+                    swiperWrapper.appendChild(slide);
+                });
 
-            console.log('Slides added. Initializing Swiper...');
+                console.log('Slides added successfully.');
 
-            // Initialize Swiper
-           trending-container', {
-                slidesPerView: 4,
-                spaceBetween: 10,
-                breakpoints: {
-                    768: {
-                        slidesPerView: 6,
+                // Initialize Swiper
+                const trendingSlider = new Swiper('.trending-container', slidesPerView: 4,
+                    spaceBetween: 10,
+                    breakpoints: {
+                        768: {
+                            slidesPerView: 6,
+                        },
                     },
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-            });
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                });
 
-            console.log('Swiper initialized:', trendingSlider);
-        } else {
-            console.error('Invalid data format:', data);
-        }
-    })
-    .catch(error => {
-        console.error('Error during fetch or initialization:', error);
-    });
+                console.log('Swiper initialized successfully:', trendingSlider);
+            } else {
+                console.error('Invalid data format:', data);
+            }
+        })
+        .catch(error => {
+            console.error('Error occurred:', error);
+        });
+});
 
 
 </script>
