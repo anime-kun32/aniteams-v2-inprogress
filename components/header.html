@@ -1,0 +1,84 @@
+<div id="sidebar_menu">
+    <button class="btn btn-radius btn-sm btn-secondary toggle-sidebar">
+        <i class="fas fa-angle-left mr-2"></i>Close menu
+    </button>
+    <div class="sb-setting">
+        <div class="header-setting">
+            <div class="hs-toggles">
+                <a href="/popular" class="hst-item" data-toggle="tooltip" data-original-title="Popular Anime List">
+                    <div class="hst-icon"><i class="fas fa-star"></i></div>
+                    <div class="name"><span>Popular</span></div>
+                </a>
+                <a href="/random" rel="nofollow" class="hst-item" data-toggle="tooltip" data-original-title="Select Random Anime">
+                    <div class="hst-icon"><i class="fas fa-random"></i></div>
+                    <div class="name"><span>Random</span></div>
+                </a>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav sidebar_menu-list">
+        <li class="nav-item active"><a class="nav-link" href="/home" title="Home">Home</a></li>
+        <li class="nav-item"><a class="nav-link-anime" title="Subbed Anime">Subbed Anime</a></li>
+        <li class="nav-item"><a class="nav-link" href="/anime/dubbed-anime" title="Dubbed Anime">Dubbed Anime</a></li>
+        <li class="nav-item"><a class="nav-link" href="/anime/most-popular" title="Most Popular">Most Popular</a></li>
+        <li class="nav-item"><a class="nav-link" href="/anime/movie" title="Movies">Movies</a></li>
+        <li class="nav-item"><a class="nav-link" href="/anime/tv" title="TV Series">TV Series</a></li>
+        <li class="nav-item"><a class="nav-link" href="/anime/ova" title="OVAs">OVAs</a></li>
+        <li class="nav-item"><a class="nav-link" href="/anime/ona" title="ONAs">ONAs</a></li>
+        <li class="nav-item"><a class="nav-link" href="/anime/special" title="Specials">Specials</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://anipaca-app.netlify.app" title="Events">Anipaca App</a></li>
+        <li class="nav-item">
+            <div class="nav-link" title="Genre"><strong><i class="fa fa-angle-down"></i> Genre</strong></div>
+            <div class="sidebar_menu-sub show" id="sidebar_subs_genre">
+                <ul class="nav color-list sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="/genre/action" title="Action">Action</a></li>
+="nav-item"><a class="nav-link" href="/genre/adventure" title="Adventure">Adventure</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/genre/cars" title="Cars">Cars</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/genre/comedy" title="Comedy">Comedy</a></li>
+                    <!-- More genres here -->
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+</div>
+<div id="header" class="header-home">
+    <div class="container">
+        <div id="mobile_menu"><i class="fa fa-bars"></i></div>
+        <a href="/home" id="logo" title="Website Title">
+            <img src="logo_url" width="100%" height="auto" alt="Website Title">
+            <div class="clearfix"></div>
+        </a>
+        <div id="search">
+            <div class="search-content">
+                <form action="/search" autocomplete="off">
+                    <a href="/filter" class="filter-icon">Filter</a>
+                    <input type="text" class="form-control search-input" name="keyword" placeholder="Search anime..." required>
+                    <button type="submit" class="search-icon"><i class="fas fa-search"></i></button>
+                </form>
+                <div class="nav search-result-pop" id="search-suggest" style="display: none;">
+                    <div class="loading="search-loading" style="display: none;">
+                        <div class="loading">
+                            <div class="span1"></div>
+                            <div class="span2"></div>
+                            <div class="span3"></div>
+                        </div>
+                    </div>
+                    <div class="result" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="header-group">
+            <div class="anw-group">
+                <div class="zrg-list">
+                    <div class="item"><a href="discord_url" target="_blank" class="zr-social-button dc-btn"><i class="fab fa-discord"></i></a></div>
+                    <div class="item"><a href="facebook_url" target="_blank" class="zr-social-button dc-btn"><i class="fab fa-facebook"></i></a></div>
+                    <div class="item"><a href="twitter_url" target="_blank" class="zr-social-button dc-btn"><i class="fab fa-twitter"></i></a></div>
+                    <div class="item"><a href="github_url" target="_blank" class="zr-social-button gh-btn"><i class="fab fa-github"></i></a></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
