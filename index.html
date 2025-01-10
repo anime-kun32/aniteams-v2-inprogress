@@ -548,7 +548,9 @@
             </div>
         </div>
     </div>
-        <script>
+     <script>
+    // Ensure the DOM is fully loaded before executing the script
+    document.addEventListener('DOMContentLoaded', () => {
         // Fetch data from the API
         fetch('https://aniwatch-api-net.vercel.app/api/v2/hianime/home')
             .then(response => response.json())
@@ -559,9 +561,11 @@
             .catch(error => console.error('Error fetching data:', error));
 
         function mapDataToHTML(data) {
-            // Helper function to generate anime block HTML
-            function createAnimeBlock(anime) {
-                return `
+            // Top Airing Section
+            const topAiringContainer = document.querySelector('.anif-block-01 .anif-block-ul ul');
+            data.data.topAiringAnimes.forEach(anime => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
                     <div class="film-poster item-qtip" data-id="${anime.id}">
                         <a href="/details/${anime.id}">
                             <img data-src="${anime.poster}" class="film-poster-img lazyload" src="/public/images/no_poster.jpg" alt="${anime.name}">
@@ -569,28 +573,24 @@
                     </div>
                     <div class="film-detail">
                         <h3 class="film-name">
-                            <a href="/details/${anime.id}" title="${anime.name}" class="dynamic-name anime-toggle" data-en="${anime.name}" data-jp="${anime.jname}">
+                            <a href="/details/${anime.id}" title="${anime.name}" class="dynamic-name style="opacity: 1;">
                                 ${anime.name}
                             </a>
                         </h3>
                         <div class="fd-infor">
                             <div class="tick">
-                                <div class="tick-item">${anime.episodes.sub ? `<i class="fas fa-closed-captioning mr-1"></i>${anime.episodes.sub}` : ''}</div>
+                                <div class="tick-item tick-sub">
+                                    <i class="fas fa-closed-captioning mr-1"></i>${anime.episodes.sub}
+                                </div>
                                 <div>
                                     <span class="dot"></span>${anime.type}
-                                    <span class="fdi-item">${anime.duration || 'N/A'}</span>
+                                    <span class="fdi-item">N/A</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                 `;
-            }
-
-            // Top Airing Section
-            const topAiringContainer = document.querySelector('.anif-block-01 .anif-block-ul ul');
-            data.data.topAiringAnli');
-                listItem.innerHTML = createAnimeBlock(anime);
                 topAiringContainer.appendChild(listItem);
             });
 
@@ -598,15 +598,57 @@
             const mostPopularContainer = document.querySelector('.anif-block-04:nth-of-type(1) .anif-block-ul ul');
             data.data.mostPopularAnimes.forEach(anime => {
                 const listItem = document.createElement('li');
-                listItem.innerHTML = createAnimeBlock(anime);
-                mostPopularContainer.appendChild(listItem);
-            });
-
-            // Most Favorite Section
-            const mostFavoriteContainer = document.querySelector('.anif-block-04:nth-of-type(2) .anif-block-ul ul');
+                listItem.innerHTML = `
+                    <div class="film-poster item-qtip" data-id="${anime.id}">
+                        <a href="/details/${anime.id}">
+                            <img data-src="${anime.poster}" class="film-poster-img lazyload" src="/public/images/no_poster.jpg" alt="${anime.name}">
+                        </a>
+                    </div>
+                    <div class="film-detail">
+                        <h3 class="film-name">
+                            <a href="/details/${anime.id}" title="${anime.name}" class="dynamic-name anime-toggle" data-en="${anime.name}" data-jp="${anime.jname}" style="opacity: 1;">
+                                ${anime.name}
+                            </a>
+                        </h3>
+                        <div class="fd-infor">
+                            <div class="tick">
+                                <div class="tick-item tick-dub">
+                                    <i class="fas fa-closed-captioning mr-1"></i>${anime.episodes.dub}
+                                </div>
+                                <div>
+                                    <span class="dot"></span>${anime.type}
+                                    <span class="fdi-item">N/A</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                `;
+                mostPopularContainer.appendChild(list = document.querySelector('.anif-block-04:nth-of-type(2) .anif-block-ul ul');
             data.data.mostFavoriteAnimes.forEach(anime => {
                 const listItem = document.createElement('li');
-                listItem.innerHTML = createAnimeBlock(anime);
+                listItem.innerHTML = `
+                    <div class="film-poster item-qtip" data-id="${anime.id}">
+                        <a href="/details/${anime.id}">
+                            <img data-src="${anime.poster}" class="film-poster-img lazyload" src="/public/images/no_poster.jpg" alt="${anime.name}">
+                        </a>
+                    </div>
+                    <div class="film-detail">
+                        <h3 class="film-name">
+                            <a href="/details/${anime.id}" title="${anime.name}" class="dynamic-name anime-toggle" data-en="${anime.name}" data-jp="${anime.jname}" style="opacity: 1;">
+                                ${anime.name}
+                            </a>
+                        </h3>
+                        <div class="fd-infor">
+                            <div class="tick">
+                                <div class="tick-item tick-eps">${anime.episodes.sub}</div>
+                                <span class="dot"></span>${anime.type}
+                                <span class="fdi-item">N/A</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                `;
                 mostFavoriteContainer.appendChild(listItem);
             });
 
@@ -614,11 +656,37 @@
             const latestCompletedContainer = document.querySelector('.anif-block-01:nth-of-type(2) .anif-block-ul ul');
             data.data.latestEpisodeAnimes.forEach(anime => {
                 const listItem = document.createElement('li');
-                listItem.innerHTML = createAnimeBlock(anime);
+                listItem.innerHTML = `
+                    <div class="film-poster item-qtip" data-id="${anime.id}">
+                        <a href="/details/${anime.id}">
+                            <img data-src="${anime.poster}" class="film-poster-img lazyload" src="/public/images/no_poster.jpg" alt="${anime.name}">
+                        </a>
+                    </div>
+                    <div class="film-detail">
+                        <h3 class="film-name">
+                            <a href="/details/${anime.id}" title="${anime.name}" class="dynamic-name anime-toggle" data-en="${anime.name}" data-jp="${anime.jname}" style="opacity: 1;">
+                                ${anime.name}
+                            </a>
+                        </h3>
+                        <div class="fd-infor">
+                            <div class="tick">
+                                <div class="tick-item tick-sub-1"></i>${anime.episodes.sub}
+                                </div>
+                                <div>
+                                    <span class="dot"></span>${anime.type}
+                                    <span class="fdi-item">${anime.duration}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                `;
                 latestCompletedContainer.appendChild(listItem);
             });
         }
-    </script>
+    });
+</script>
+
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
