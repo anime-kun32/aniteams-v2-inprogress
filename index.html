@@ -553,7 +553,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         console.log('DOM fully loaded and parsed');
 
-        // Fetch data from the API
+        // Fetch data from the first API for top airing, most favorite, and latest completed anime
         fetch('https://aniwatch-api-net.vercel.app/api/v2/hianime/home')
             .then(response => {
                 if (!response.ok) {
@@ -570,32 +570,47 @@
                 console.error('Error fetching data:', error);
             });
 
+        // Fetch data from the second API for most popular anime
+        fetch('https://anime-api-zeta-lac.vercel.app/api/')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Most popular data fetched successfully:', data);
+                mapMostPopularDataToHTML(data);
+            })
+            .catch(error => {
+                c.error('Error fetching most popular data:', error);
+            });
+
         function mapDataToHTML(data) {
             // Top Airing Section
             const topAiringContainer = document.querySelector('.anif-block-01 .anif-block-ul ul');
             if (topAiringContainer) {
-                data.data.topAiringAnimes.forEach(anime => {
+                data.results.topAiring.forEach(anime => {
                     const listItem = document.createElement('li');
                     listItem.innerHTML = `
                         <div class="film-poster item-qtip" data-id="${anime.id}">
-                            <a href="/details/${anime.id}">
-                           <img data-src="${anime.poster}" class="film-poster-img lazyload" src="/public/images/no_poster.jpg" alt="${anime.name}">
+                            <a href="/details/${anime.data_id}">
+                                <img data-src="${anime.poster}" class="film-poster-img lazyload" src="/public/images/no_poster.jpg" alt="${anime.title}">
                             </a>
                         </div>
                         <div class="film-detail">
                             <h3 class="film-name">
-                                <a href="/details/${anime.id}" title="${anime.name}" class="dynamic-name anime-toggle" data-en="${anime.name}" data-jp="${anime.jname}">
-                                    ${anime.name}
+                                <a href="/details/${anime.data_id}" title="${anime.title}" class="dynamic-name anime-toggle" data-en="${anime.title}" data-jp="${anime.japanese_title}">
+                                    ${anime.title}
                                 </a>
                             </h3>
                             <div class="fd-infor">
                                 <div class="tick">
                                     <div class="tick-item tick-sub">
-                                        <i class="fas fa-closed-captioning mr-1"></i>${anime.episodes.sub}
+                                        <i class="fas fa-closed-captioning mr-1"></i>${anime.tvInfo.sub}
                                     </div>
                                     <div>
-                                        <span class="dot"></span>${anime.type}
-                                        <span class="fdi-item">N/A</span>
+                                        <span class="dot"></span>${anime.tvInfo.showType}\                                        <span class="fdi-item">N/A</span>
                                     </div>
                                 </div>
                             </div>
@@ -608,20 +623,92 @@
                 console.error('Top Airing container not found.');
             }
 
-            // Most Popular Section
-            const mostPopularContainer = document.querySelector('.anif-block-04:nth-of-type(1) .anif-block-ul ul');
-            if (mostPopularContainer) {
-                data.data.mostAnimes.forEach(anime => {
+            // Most Favorite Section
+            const mostFavoriteContainer = document.querySelector('.anif-block-04:nth-of-type(2) .anif-block-ul ul');
+            if (mostFavoriteContainer) {
+                data.results.mostFavorite.forEach(anime => {
                     const listItem = document.createElement('li');
                     listItem.innerHTML = `
                         <div class="film-poster item-qtip" data-id="${anime.id}">
-                            <a href="/details/${anime.id}">
-                                <img data-src="${anime.poster}" class="film-poster-img lazyload" src="/public/images/no_poster.jpg" alt="${anime.name}">
+                            <a href="/details/${anime.data_id}">
+                                <img data-src="${anime.poster}" class="film-poster-img lazyload" src="/public/images/no_poster.jpg" alt="${anime.title}">
                             </a>
                         </div>
                         <div class="film-detail">
                             <h3 class="film-name">
-                                <a href="/details/${anime.id}" title="${anime.name}" class="dynamic-name anime-toggle" data-en="${anime.name}" data-jp="${anime.jname}" style="opacity: 1;">
+                                <a href="/details/${anime.data_id}" title="${anime.title}" class="dynamic-name anime-toggle" data-en="${anime.title}" data-jp="${anime.japanese_title}">
+                                    ${anime.title}
+                                </a>
+                            </h3>
+                            <div class="fd-infor">
+                                <div classtick">
+                                    <div class="tick-item tick-eps">${anime.tvInfo.sub}</div>
+                                    <span class="dot"></span>${anime.tvInfo.showType}
+                                    <span class="fdi-item">N/A</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    `;
+                    mostFavoriteContainer.appendChild(listItem);
+                });
+            } else {
+                console.error('Most Favorite container not found.');
+            }
+
+            // Latest Completed Section
+            const latestCompletedContainer = document.querySelector('.anif-block-01:nth-of-type(2) .anif-block-ul ul');
+            if (latestCompletedContainer) {
+                data.results.latestCompleted.forEach(anime => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <div class="film-poster item-qtip" data-id="${anime.id}">
+                            <a href="/details/${anime.data_id}">
+                                <img data-src="${anime.poster}" class="film-poster-img lazyload" src="/public/images/no_poster.jpg" alt="${anime.title}">
+                            </a>
+                        </div>
+                        <div class="film-detail">
+                            <h3 class="film-name">
+                                <a href="/details/${anime.data_id}" title="${anime.title}" class="dynamic-name anime-toggle" data-en="${anime.title}" data-jp="${anime.japanese_title}">
+                                    ${anime.title}
+                                </a>
+                            </h3>
+                            <div class="fd-infor">
+                                <div class="tick">
+                                    <div class="tick-item tick-sub">
+                                        <i class="fas fa-closed-captioning mr-1"></i>${anime.tvInfo.sub}
+                                    </div>
+                                    <div>
+                                        <span class="dot"></span>${anime.tvInfo.showType}
+                                        <span class="fdi-item">${anime.tvInfo.duration}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    `;
+                    latestCompletedContainer.appendChild(listItem);
+                });
+            } else {
+                console.error('Latest Completed container not found.');
+            }
+        }
+
+        function mapMostPopularDataToHTML(data) {
+            // Most Popular Section
+            const mostPopularContainer = document.querySelector('.anif-block-04:nth-of-type(1) .anif-block-ul ul');
+            if (mostPopularContainer) {
+                data.data.mostPopularAnimes.forEach(anime => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <div class="film-poster item-qtip" data-id="${anime.id}">
+                            <a href="/details/${anime.id}">
+                                <img data-src="${anime.poster}" class="film-poster-img lazyload" src="/public/images/n_poster.jpg" alt="${anime.name}">
+                            </a>
+                        </div>
+                        <div class="film-detail">
+                            <h3 class="film-name">
+                                <a href="/details/${anime.id}" title="${anime.name}" class="dynamic-name anime-toggle" data-en="${anime.name}" data-jp="${anime.jname}">
                                     ${anime.name}
                                 </a>
                             </h3>
@@ -641,78 +728,8 @@
                     `;
                     mostPopularContainer.appendChild(listItem);
                 });
-  } else {
+            } else {
                 console.error('Most Popular container not found.');
-            }
-
-            // Most Favorite Section
-            const mostFavoriteContainer = document.querySelector('.anif-block-04:nth-of-type(2) .anif-block-ul ul');
-            if (mostFavoriteContainer) {
-                data.data.mostFavoriteAnimes.forEach(anime => {
-                    const listItem = document.createElement('li');
-                    listItem.innerHTML = `
-                        <div class="film-poster item-qtip" data-id="${anime.id}">
-                            <a href="/details/${anime.id}">
-                                <img data-src="${anime.poster}" class="film-poster-img lazyload" src="/public/images/no_poster.jpg" alt="${anime.name}">
-                            </a>
-                        </div>
-                        <div class="film-detail">
-                            <h3 class="film-name">
-                                <a href="/details/${anime.id}" title="${anime.name}" class="dynamic-name anime-toggle" data-en="${anime.name}" data-jp="${anime.jname}" style="opacity: 1;">
-                                    ${anime.name}
-                                </a>
-                            </h3>
-                            <div class="fd-infor">
-                                <div class="tick">
-                                    <div class="tick-item tick-eps">${anime.episodes.sub}</div>
-                                    <span class="dot"></span>${anime.type}
-                                    <span class="fdi-item">N/A</span>
-                                </div>
-                            </div>
-          </div>
-                        <div class="clearfix"></div>
-                    `;
-                    mostFavoriteContainer.appendChild(listItem);
-                });
-            } else {
-                console.error('Most Favorite container not found.');
-            }
-
-            // Latest Completed Section
-            const latestCompletedContainer = document.querySelector('.anif-block-01:nth-of-type(2) .anif-block-ul ul');
-            if (latestCompletedContainer) {
-                data.data.latestEpisodeAnimes.forEach(anime => {
-                    const listItem = document.createElement('li');
-                    listItem.innerHTML = `
-                        <div class="film-poster item-qtip" data-id="${anime.id}">
-                            <a href="/details/${anime.id}">
-                                <img data-src="${anime.poster}" class="film-poster-img lazyload" src="/public/images/no_poster.jpg" alt="${anime.name}">
-                            </a>
-                        </div>
-                        <div class="film-detail">
-                            <h3 class="film-name">
-                                <a href="/details/${anime.id}" title="${anime.name}" class="dynamic-name anime-toggle" data-en="${anime.name}" data-jp="${anime.jname}" style="opacity: 1;">
-                                    ${anime.name}
-                                </a>
-                            </h3>
-                            <div class="fd-infor">
-                                <div class="tick">
-                                    <div class="tick-item tick-sub">
-                                        <i class="fas fa-closed-captioning mr-1"></i>${anime.episodes.sub}
-                                    </div>
-                                    <div>
-                                        <span class="dot"></span>${anime.type}
-                                        <span class="fdi-item">${anime.duration}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    `;
-                    latestCompletedContainer.appendChild(listItem);
-                });
-            } else {
-                console.error('Latest Completed container not found.');
             }
         }
     });
