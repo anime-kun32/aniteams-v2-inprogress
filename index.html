@@ -504,24 +504,32 @@
     </div>
 </div>
 <script>
-    // API URL
+   <script>
     const apiUrl = 'https://aniwatch-api-net.vercel.app/api/v2/hianime/home'; // Replace with your actual API endpoint
 
-    // Fetch anime data and populate the HTML
     async function fetchAnimeData() {
         try {
+            console.log('Fetching data from API...');
             const response = await fetch(apiUrl);
-            const result = await response.json();
 
-            // Check if the response is successful
-            if (result.success) {
+            // Check if response is okay
+            if (!response.ok) {
+                console.error('Failed to fetch:', response.status, response.statusText);
+                return;
+            }
+
+            const result = await response.json();
+            console.log('API response:', result);
+
+            // Ensure the response is structured as expected
+            if (result.success && result.data && result.dataimes) {
                 const animeList = result.data.topAiringAnimes;
 
                 // Target container
                 const animeContainer = document.getElementById('anime-list');
-                animeContainer.innerHTML = ''; // Clear any existing content
+                animeContainer.innerHTML = '';
 
-                // Loop through the top airing animes
+                // Populate anime data
                 animeList.forEach(anime => {
                     const animeItem = `
                         <div class="anif-block anif-block-01">
@@ -531,7 +539,7 @@
                                     <li>
                                         <div class="film-poster item-qtip" data-id="${anime.id}">
                                             <a href="/details/${anime.id}">
-                                                <img data-src="${anime.poster}" class="film-poster-img}" alt="${anime.name}">
+                                                <img data-src="${anime.poster}" class="film-poster-img lazyload" src="${anime.poster}" alt="${anime.name}">
                                             </a>
                                         </div>
                                         <div class="film-detail">
@@ -546,7 +554,7 @@
                                                         <i class="fas fa-closed-captioning mr-1"></i>${anime.episodes.sub}
                                                     </div>
                                                     <div class="tick-item tick-dub">
-                                                        <i class="fas fa-microphone mr-1"></i>${anime.episodes.dub}
+ fa-microphone mr-1"></i>${anime.episodes.dub}
                                                     </div>
                                                     <div class="tick-item tick-eps">${anime.episodes.sub}</div>
                                                     <div>
@@ -565,13 +573,17 @@
                     animeContainer.innerHTML += animeItem;
                 });
             } else {
-                console.error('API response was not successful');
+                console.error('Unexpected API response structure:', result);
             }
         } catch (error) {
             console.error('Error fetching anime data:', error);
         }
+    }
 
+    // Initialize fetch
     fetchAnimeData();
+</script>
+
 </script>
 
                           
